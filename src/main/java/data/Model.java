@@ -6,16 +6,37 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Model {
-    public static List<String> columnType;
+
     @JsonProperty("columnName")
-    public static List<String> columnName;
+    public List<String> columnName;
     @JsonProperty("columnValue")
     private List<List<String>> columnValue;
     @JsonProperty("columnCount")
     private int columnCount;
-//    static Model getModel(){
-//        return this.clone();
-//    }
+
+
+    public List<String> columnType;
+
+    public List<String> getColumnType() {
+        return columnType;
+    }
+
+    public void setColumnType(List<String> columnType) {
+        this.columnType = columnType;
+    }
+
+    public List<String> getColumnName() {
+        return columnName;
+    }
+
+    public void setColumnName(List<String> columnName) {
+        this.columnName = columnName;
+    }
+
+    public List<List<String>> getColumnValue() {
+        return columnValue;
+    }
+
     Model(){
         columnValue = new ArrayList<List<String>>();
     }

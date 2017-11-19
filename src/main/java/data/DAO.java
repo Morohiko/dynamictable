@@ -18,7 +18,7 @@ public class DAO {
             DataSource dataSource = (DataSource) ic.lookup("jdbc/users");
             Connection connection = dataSource.getConnection();
             statement = connection.createStatement();
-            addMetaData();
+//            addMetaData();
         } catch (NamingException e) {
             e.printStackTrace();
         } catch (SQLException e) {
@@ -41,24 +41,29 @@ public class DAO {
     private List<String> columnType = new ArrayList<String>();
     private List<String> columnValue = new ArrayList<String>();
     private int columnCount;
+    private Model model;
+
     private void addMetaData(){
+        columnName = new ArrayList<String>();
+        columnType = new ArrayList<String>();
+        columnValue = new ArrayList<String>();
         try {
             resultSet = statement.executeQuery("SELECT * FROM users.users;");
-            System.out.println("getcolumncoutn = " + resultSet.getMetaData().getColumnCount());
             columnCount = resultSet.getMetaData().getColumnCount();
             for (int j = 1; j <= columnCount; j++) {
                 columnName.add(resultSet.getMetaData().getColumnName(j));
                 columnType.add(resultSet.getMetaData().getColumnTypeName(j));
             }
-            Model.columnName = columnName;
-            Model.columnType = columnType;
+            model = new Model();
+            model.setColumnName(columnName);
+            model.setColumnType(columnType);
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
     Model getAllPerson(){
-        Model model = new Model();
+        addMetaData();
         try {
             resultSet = statement.executeQuery("SELECT * FROM users.users;");
             model.setColumnCount(columnCount);
