@@ -4,9 +4,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class Controller {
+    private static Controller instance;
     private HttpServletRequest request;
     private HttpServletResponse response;
     private Service service = Service.getInstance();
+
+    public static Controller getInstance(){
+        if (instance == null) {
+            instance = new Controller();
+        }
+        return instance;
+    }
 
     public Model getModel(){
         return service.generateList();
@@ -15,21 +23,14 @@ public class Controller {
     public void checkController(HttpServletRequest req, HttpServletResponse resp){
         request = req;
         response = resp;
-        if (req.getParameter("btn") != null)
-            addController();
+        System.out.println("addControllerbtn = " + req.getParameter("btn"));
+        if (req.getParameter("btn") == null) return;
+        if (req.getParameter("btn").equals("change")){
+            change();
+        }
     }
 
-    private void addController(){
-//        String name = request.getParameter("name");
-//        int age = Integer.parseInt(request.getParameter("age"));
-//        Person person = new Person(name, age);
-//        System.out.println("name = " + name + " age = " + age);
-//        service.addToDB(person);
+    private void change(){
+        service.change(request.getParameter("name"));
     }
-
-    private void removeName(String name){
-
-    }
-
-
 }

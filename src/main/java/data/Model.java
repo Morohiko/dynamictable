@@ -6,12 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Model {
-
-    @JsonProperty("columnName")
     public List<String> columnName;
-    @JsonProperty("columnValue")
     private List<List<String>> columnValue;
-    @JsonProperty("columnCount")
     private int columnCount;
 
 

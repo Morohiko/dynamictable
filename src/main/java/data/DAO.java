@@ -10,15 +10,22 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DAO {
+class DAO {
+    public String getTableName() {
+        return tableName;
+    }
 
+    public void setTableName(String tableName) {
+        this.tableName = tableName;
+    }
+
+    private String tableName = "users.users";
     private DAO(){
         try {
             InitialContext ic = new InitialContext();
             DataSource dataSource = (DataSource) ic.lookup("jdbc/users");
             Connection connection = dataSource.getConnection();
             statement = connection.createStatement();
-//            addMetaData();
         } catch (NamingException e) {
             e.printStackTrace();
         } catch (SQLException e) {
@@ -30,7 +37,7 @@ public class DAO {
 
     private static DAO instance;
 
-    public static DAO getInstance(){
+    static DAO getInstance(){
         if (instance == null) {
             instance = new DAO();
         }
@@ -48,7 +55,7 @@ public class DAO {
         columnType = new ArrayList<String>();
         columnValue = new ArrayList<String>();
         try {
-            resultSet = statement.executeQuery("SELECT * FROM users.users;");
+            resultSet = statement.executeQuery("SELECT * FROM " + tableName + ";");
             columnCount = resultSet.getMetaData().getColumnCount();
             for (int j = 1; j <= columnCount; j++) {
                 columnName.add(resultSet.getMetaData().getColumnName(j));
@@ -65,7 +72,7 @@ public class DAO {
     Model getAllPerson(){
         addMetaData();
         try {
-            resultSet = statement.executeQuery("SELECT * FROM users.users;");
+            resultSet = statement.executeQuery("SELECT * FROM " + tableName + ";");
             model.setColumnCount(columnCount);
             while (resultSet.next()) {
                 for (String name:columnName) {
@@ -80,14 +87,4 @@ public class DAO {
         }
         return model;
     }
-
-//    void insertToDB(Model model){
-//        String name = model.getName();
-//        int age = person.getAge();
-//        try {
-//            statement.executeUpdate("INSERT INTO users.users (name, age) VALUES ('"+name+"', "+age+");");
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//    }
 }

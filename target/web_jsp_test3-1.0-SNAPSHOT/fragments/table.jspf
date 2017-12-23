@@ -1,0 +1,24 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="java.util.List" %>
+<%@ page import="data.Model" %>
+<%@ page import="data.Controller" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
+<%Controller controller1 = Controller.getInstance();%>
+<%Model model1 = controller1.getModel();%>
+<%List <List<String>>listAll = model1.getAllTableValue();%>
+<%List listName = model1.getColumnName();%>
+<table border="1">
+    <tr>
+        <%for (Object o:listName) {%>
+        <td><%=o.toString()%></td>
+        <%}%>
+        </td></tr>
+    <%for (List list:listAll) {%>
+    <tr>
+        <%for (Object o:list) {%>
+        <td><%=o.toString()%></td>
+        <%}%>
+    </tr>
+    <%}%>
+</table>

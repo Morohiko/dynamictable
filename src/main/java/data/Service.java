@@ -11,14 +11,14 @@ class Service {
     }
 
     private DAO dao = DAO.getInstance();
-
+    private Model model = null;
     Model generateList(){
-        Model model = dao.getAllPerson();
+        model = dao.getAllPerson();
         return model;
     }
 
-//    void addToDB(Model model){
-//        dao.insertToDB(model);
-//    }
-
+    void change(String name){
+        dao.setTableName(name);
+        model = dao.getAllPerson();
+    }
 }

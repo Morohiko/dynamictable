@@ -1,0 +1,13 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
+<%Controller controller = Controller.getInstance();%>
+<%Model model = controller.getModel();%>
+<form action="index.jsp" name="get">
+    <input name="reloadList" type="submit" value="reloadList">
+</form>
+
+<form action="index.jsp" name="change">
+    <input name="name" type="text">
+    <input name="btn" type="submit" value="change">
+</form>
+<%controller.checkController(request, response);%>
